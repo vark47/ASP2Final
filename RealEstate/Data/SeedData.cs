@@ -1,58 +1,38 @@
-﻿/*using FinalProj.Models;
+﻿using RealEstate.Models;
 using System;
 using System.Linq;
-using FinalProj.Data;
+using RealEstate.Data;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace FinalProj.Data
+namespace RealEstate.Data
 {
-    public static class SeedData
+    public class SeedData
     {
-        public static void Initialize(ApplicationDbContext context)
+        public static void Initialize(IServiceProvider services)
         {
+            ApplicationDbContext context = services.GetRequiredService<ApplicationDbContext>();
             context.Database.EnsureCreated();
-
-            // Look for any students.
-            if (context.Listings.Any())
+            if (!context.Listings.Any())
             {
-                return;   // DB has been seeded
+                //Image image = new Image { ImageID = 1, URL = "~/images/home1.jpg" }; 
+                //context.Images.Add(image);
+                //context.SaveChanges();      
+                Listing listing = new Listing { Body = "Test.", Rent = 1300.00m, Title="Awesome Bungalow in Detroit" };
+                context.Listings.Add(listing);
+                //Listing listing2 = new Listing { Body = "A beautiful place to get away from law enforcement.", Rent = 1100.00m, Title = "Another Awesome House" };
+               // context.Listings.Add(listing2);
+
+
+                listing = new Listing { Body = "A beautiful place to get away from law enforcement. TEST@@@@", Rent = 1100.00m, Title = "Another Awesome House" };
+                context.Listings.Add(listing);
+                //image.Listings.Add(listing);
+
+
+
+
+                context.SaveChanges(); // save the last addition
             }
-
-
-
-
-            var images = new Image[]
-            {
-            new Image{ImageID = 1, URL = "~/images/home1.jpg"},
-            new Image{ImageID = 2, URL = "~/images/home2.jpg"},
-            new Image{ImageID = 3, URL = "~/images/home3.jpg"},
-            new Image{ImageID = 4, URL = "~/images/home4.jpg"},
-            new Image{ImageID = 5, URL = "~/images/home5.jpg"},
-            new Image{ImageID = 6, URL = "~/images/home6.jpg"},
-            };
-            foreach (Image i in images)
-            {
-                context.Images.Add(i);
-            }
-            context.SaveChanges();
-        
-
-            var listings = new Listing[]
-          {
-            new Listing{ Body="This house ain't hardly had no murders in it.", ImageID = 1, Rent = 1300.00m},
-            new Listing{ Body="Great for hiding dead bodies", ImageID = 2, Rent = 1600.00m},
-            new Listing{ Body="Why are you even still looking at our listings at this point you sick person?", ImageID = 3, Rent = 1100.00m}
-           };
-            foreach (Listing s in listings)
-            {
-                context.Listings.Add(s);
-            }
-            context.SaveChanges();
-
         }
-
-
     }
+}
 
-    }
-
-    */

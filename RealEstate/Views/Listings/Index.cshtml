@@ -1,0 +1,37 @@
+﻿@model IEnumerable<RealEstate.Models.Listing>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+        @foreach (var item in Model)
+    {
+
+        <div class="card" style="width:100%">
+            <img class="card-img-top" src="..." alt="Card image cap">
+            <div class="card-body">
+                <h1 class="card-title">@Html.DisplayFor(modelItem => item.Title)</h1>
+            </div>
+            <ul class="list-group list-group-flush">
+                
+                <li class="list-group-item"> @Html.DisplayFor(modelItem => item.Body)</li>
+                <li class="list-group-item">@Html.DisplayFor(modelItem => item.Rent)</li>
+            </ul>
+            <div class="card-body">
+                <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-warning active" >Edit Listing</a>
+                <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-danger active">Delete Listing</a>
+            </div>
+            <br/>
+            <br/>
+        </div>
+
+}
+        <!--Break-->
+
+

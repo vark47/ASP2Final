@@ -11,9 +11,10 @@ using System;
 namespace RealEstate.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180313014759_rjun")]
+    partial class rjun
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -198,11 +199,15 @@ namespace RealEstate.Data.Migrations
 
                     b.Property<string>("Body");
 
+                    b.Property<int>("ImageID");
+
                     b.Property<decimal>("Rent");
 
                     b.Property<string>("Title");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("ImageID");
 
                     b.ToTable("Listings");
                 });
@@ -249,6 +254,14 @@ namespace RealEstate.Data.Migrations
                     b.HasOne("RealEstate.Models.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("RealEstate.Models.Listing", b =>
+                {
+                    b.HasOne("RealEstate.Models.Image")
+                        .WithMany("Listings")
+                        .HasForeignKey("ImageID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

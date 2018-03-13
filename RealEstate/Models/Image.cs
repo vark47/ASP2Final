@@ -9,6 +9,6 @@ namespace RealEstate.Models
     {
         public int ImageID { get; set; }
         public string URL { get; set; }
-        public ICollection<Listing> Listings { get; set; }
+       // public ICollection<Listing> Listings { get; set; }
     }
 }
